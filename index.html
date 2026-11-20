@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WordPress 🤝 AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!--
+  WordPress 🤝 AI: A Tour of the Core AI Projects · WordCamp Athens 2026 (Bossenger Slides).
+  Controls:  → / Space / PageDown = next   ← / PageUp = previous   Home / End   F = fullscreen
+  Deep link: index.html#3 opens slide 3.  Print to PDF works (one slide per page).
+  Images: drop files into ./images/ using the filenames noted on each placeholder.
+-->
+<style>
+/* Bossenger Slides — generated from tokens.json */
+:root {
+  --surface: #F6F8FC;
+  --surface-card: #EEF3FA;
+  --surface-raised: #FFFFFF;
+  --ink: #1A1A1A;
+  --ink-muted: #6B6D74;
+  --ink-lede: #6B6D74;
+  --line: #D9E0EC;
+  --accent: #7B6AE0;
+  --accent-ink: #4B36C4;
+  --accent-strong: #6A57D1;
+  --accent-soft: #A9A0EE;
+  --accent-wash: rgba(106, 87, 209, 0.24);
+  --rail-end: #3D6FE0;
+  --slot-border: #B8B0F0;
+  --secondary: #4F9DFF;
+  --footer-bg: #1A1A1A;
+  --footer-ink: #FFFFFF;
+  --terminal-bg: #1A1A1A;
+  --terminal-ink: #E8E6F8;
+  --terminal-comment: #8A8D96;
+  --live: #C62828;
+  --stage: #0E0E12;
+  --gap-chip: 12px;
+  --gap-card: 14px;
+  --gap-list: 22px;
+  --gap-grid: 24px;
+  --gap-heading: 40px;
+  --gap-section: 48px;
+  --slide-pad-top: 64px;
+  --slide-footer: 64px;
+  --gap-split: 72px;
+  --gap-stats: 80px;
+  --slide-pad-x: 96px;
+  --slide-body-bottom: 112px;
+  --radius-none: 0px;
+  --radius-bar: 4px;
+  --radius-tag: 6px;
+  --radius-chip: 8px;
+  --radius-row: 12px;
+  --radius-shot: 8px;
+  --radius-card: 14px;
+  --slide-width: 1600px;
+  --slide-height: 900px;
+  --marker: 14px;
+  --progress: 4px;
+  --rail: 28px;
+  --shot-height: 630px;
+  --shadow-shot: 0 16px 48px rgba(26, 26, 26, 0.14);
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+/* Bright slides: <section class="slide" data-theme="bright"> */
+[data-theme="bright"] {
+  --surface: #FFFFFF;
+  --ink-muted: #3A3C42;
+  --ink-lede: #2E3036;
+}
+
+/* Bossenger Slides — slide stylesheet. Loads after tokens.css. Copy into a deck's <style> together with the tokens. */
+
+/* ---------- Stage + deck (only inside a running deck) ---------- */
+body.stage { margin: 0; height: 100%; background: var(--stage); overflow: hidden; -webkit-font-smoothing: antialiased; }
+.deck { position: absolute; top: 50%; left: 50%; width: var(--slide-width); height: var(--slide-height); transform-origin: center center; }
+.deck .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility .35s; }
+.deck .slide.active { opacity: 1; visibility: visible; }
+
+/* ---------- Slide ---------- */
+.slide, .slide * { box-sizing: border-box; }
+.slide :where(h1, h2, h3, h4, p, ul, figure) { margin: 0; padding: 0; }
+.slide {
+  position: relative; width: var(--slide-width); height: var(--slide-height);
+  background: var(--surface); color: var(--ink); font-family: var(--font-sans);
+  display: flex; flex-direction: column; padding: var(--slide-pad-top) var(--slide-pad-x) 0; overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Chrome: top bar, footer ---------- */
+.top { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 18px; letter-spacing: .08em; text-transform: uppercase; position: relative; z-index: 1; }
+.eyebrow { display: flex; align-items: center; gap: 14px; font-weight: 500; }
+.eyebrow::before { content: ""; width: var(--marker); height: var(--marker); background: var(--accent); }
+.meta { color: var(--ink-muted); }
+.foot {
+  position: absolute; left: 0; right: 0; bottom: 0; height: var(--slide-footer);
+  background: var(--footer-bg); color: var(--footer-ink);
+  display: flex; justify-content: space-between; align-items: center; padding: 0 var(--slide-pad-x);
+  font-family: var(--font-mono); font-size: 16px; letter-spacing: .1em; text-transform: uppercase;
+}
+.foot .count { color: var(--accent-soft); }
+.foot::before { content: ""; position: absolute; left: 0; top: 0; height: var(--progress); width: var(--progress-pct, 0%); background: linear-gradient(90deg, var(--accent), var(--secondary)); transition: width .35s ease; }
+.body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: var(--slide-body-bottom); position: relative; }
+
+/* ---------- Type ---------- */
+.slide h1, .slide h2, .slide h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.04; letter-spacing: -.01em; text-wrap: balance; }
+.slide h1 { font-size: 128px; }
+.slide h2 { font-size: 92px; margin-bottom: var(--gap-heading); }
+.slide h2.compact { font-size: 64px; margin-bottom: 28px; }
+.slide h3 { font-size: 40px; margin-bottom: 12px; }
+.slide em { font-style: italic; color: var(--accent-ink); }
+.lede { font-size: 36px; line-height: 1.4; color: var(--ink-lede); max-width: 1100px; }
+.lede strong { color: var(--ink); font-weight: 600; }
+.fine { font-size: 22px; line-height: 1.45; color: var(--ink-muted); max-width: 900px; }
+.slide code, .mono { font-family: var(--font-mono); }
+.slide a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 6px; }
+.link { font-family: var(--font-mono); font-size: 24px; color: var(--accent-strong) !important; text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
+.link::after { content: "→"; }
+
+/* ---------- Square-bullet list ---------- */
+ul.sq { list-style: none; display: grid; gap: var(--gap-list); }
+ul.sq li { position: relative; padding-left: 40px; font-size: 36px; line-height: 1.35; }
+ul.sq li::before { content: ""; position: absolute; left: 0; top: .5em; width: var(--marker); height: var(--marker); background: var(--ink); }
+ul.sq li strong { font-weight: 600; }
+ul.sq li .sub { display: block; color: var(--ink-muted); font-size: 28px; }
+
+/* ---------- Media slot ---------- */
+.slot { position: relative; border: 3px dashed var(--slot-border); background: var(--surface-card); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--ink-muted); font-family: var(--font-mono); font-size: 18px; line-height: 1.5; overflow: hidden; }
+.slot::before { content: attr(data-label); padding: 24px; white-space: pre-line; }
+.slot > img, .slot > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--ink); }
+.slot.contain > img, .slot.contain > video { object-fit: contain; }
+.slot:has(> img, > video) { border: 1px solid var(--ink); }
+.slot.bare, .slot.bare:has(> img) { border: none; background: transparent; }
+.slot.bare > img { background: transparent; }
+
+/* ---------- Screenshot slide: the image is the focus, so the heading stays small ---------- */
+.body.shot { padding: 24px 0 88px; }
+.body.shot > * { align-self: center; width: calc(var(--shot-height) * var(--ratio)); }
+.body.shot h2 { font-size: 44px; margin-bottom: 20px; }
+.body.shot .slot { height: var(--shot-height); border: none; background: transparent; border-radius: var(--radius-shot); box-shadow: var(--shadow-shot); }
+.body.shot .slot > img { background: transparent; }
+
+/* ---------- Layouts ---------- */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-split); align-items: center; }
+.split.wide-left { grid-template-columns: 1.25fr 1fr; }
+
+/* ---------- Cards + tag ---------- */
+.cards { display: grid; gap: var(--gap-grid); }
+.cards.c2 { grid-template-columns: repeat(2, 1fr); }
+.cards.c3 { grid-template-columns: repeat(3, 1fr); }
+.cards.c4 { grid-template-columns: repeat(4, 1fr); }
+.cards.c5 { grid-template-columns: repeat(5, 1fr); }
+.card { background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 32px 28px; display: flex; flex-direction: column; gap: var(--gap-card); }
+.card .ico { font-size: 44px; line-height: 1; }
+.card .num { font-family: var(--font-mono); font-size: 16px; color: var(--accent); letter-spacing: .1em; }
+.card h4 { font-family: var(--font-sans); font-size: 28px; font-weight: 600; line-height: 1.2; margin: 0; }
+.card p { font-size: 22px; line-height: 1.45; color: var(--ink-muted); }
+.card.soon { background: transparent; border-style: dashed; }
+.tag { align-self: flex-start; font-family: var(--font-mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 10px; border-radius: var(--radius-tag); background: var(--surface-card); color: var(--accent-strong); }
+
+/* ---------- Stats ---------- */
+.stats { display: flex; gap: var(--gap-stats); margin: 8px 0 var(--gap-section); }
+.stat b { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 120px; line-height: 1; color: var(--accent); }
+.stat b small { font-size: 48px; }
+.stat span { font-family: var(--font-mono); font-size: 18px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+
+/* ---------- Terminal ---------- */
+.terminal { background: var(--terminal-bg); color: var(--terminal-ink); border-radius: var(--radius-card); padding: 32px 36px; font-family: var(--font-mono); font-size: 26px; line-height: 1.6; }
+.terminal .p { color: var(--accent-soft); user-select: none; }
+.terminal .c { color: var(--terminal-comment); }
+
+/* ---------- Chips ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--gap-chip); }
+.chips span { font-family: var(--font-mono); font-size: 19px; padding: 8px 14px; border-radius: var(--radius-chip); background: var(--surface-raised); border: 1px solid var(--line); }
+
+/* ---------- Flow ---------- */
+.flow { display: flex; align-items: stretch; margin-top: 8px; }
+.flow .step { flex: 1; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 28px 24px; font-size: 24px; line-height: 1.35; }
+.flow .step .num { display: block; font-family: var(--font-mono); font-size: 15px; color: var(--accent); letter-spacing: .1em; margin-bottom: 10px; }
+.flow .arrow { display: flex; align-items: center; padding: 0 14px; font-size: 32px; color: var(--accent); }
+
+/* ---------- Bright slides: section dividers, live demo, thank you ----------
+   Light and high-contrast so they survive brightly lit rooms. Set data-theme="bright" on the section. */
+.slide[data-theme="bright"], [data-theme="bright"] .slide { background: var(--surface); }
+.slide[data-theme="bright"]::before, [data-theme="bright"] .slide::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--rail); background: linear-gradient(180deg, var(--accent-strong), var(--rail-end)); }
+.slide[data-theme="bright"] .eyebrow, [data-theme="bright"] .slide .eyebrow { font-weight: 700; }
+.slide[data-theme="bright"] .lede, [data-theme="bright"] .slide .lede { font-weight: 500; }
+
+/* ---------- Section divider ---------- */
+.divider .num { font-family: var(--font-mono); font-size: 26px; font-weight: 700; letter-spacing: .14em; color: var(--accent-ink); margin-bottom: 28px; }
+.divider h2 { font-size: 160px; margin-bottom: 28px; position: relative; z-index: 1; }
+.divider .lede { position: relative; z-index: 1; }
+.divider .bignum { position: absolute; right: -20px; bottom: 40px; font-family: var(--font-serif); font-size: 620px; line-height: .8; color: var(--accent-wash); pointer-events: none; }
+
+/* ---------- Title slide ---------- */
+.title h1 { font-size: 112px; max-width: 1200px; }
+.title h1 .pre { display: block; font-size: 64px; color: var(--ink-muted); margin-bottom: 18px; }
+.title .by { margin-top: 48px; font-size: 28px; color: var(--ink-muted); }
+.title .by strong { color: var(--ink); font-weight: 600; }
+.date { position: absolute; right: 0; top: 50%; transform: translateY(-50%); text-align: right; }
+.date span { font-family: var(--font-mono); font-size: 18px; letter-spacing: .12em; color: var(--ink-muted); }
+.date b { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 120px; line-height: 1; color: var(--accent); }
+
+/* ---------- Statement ---------- */
+.statement h2 { font-size: 150px; }
+.statement h2.reveal { font-size: 180px; }
+.thanks h1 { font-size: 180px; margin-bottom: 40px; }
+.thanks .lede { font-family: var(--font-mono); font-size: 30px; line-height: 1.7; }
+
+/* ---------- Winner + podium ---------- */
+.winner { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--gap-split); align-items: center; }
+.winner .kicker { font-family: var(--font-mono); font-size: 22px; letter-spacing: .1em; color: var(--ink-muted); margin-bottom: 12px; }
+.winner .score { font-family: var(--font-serif); font-size: 220px; line-height: .9; color: var(--accent); }
+.winner .score small { font-size: 64px; color: var(--ink-muted); }
+.podium { display: grid; gap: var(--gap-card); }
+.podium div { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 16px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-row); padding: 18px 22px; font-family: var(--font-mono); font-size: 22px; }
+.podium div:first-child { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+.podium .pos { font-family: var(--font-serif); font-size: 36px; color: var(--accent); }
+.podium .pts { color: var(--ink-muted); }
+.podium .name { font-family: var(--font-sans); font-size: 26px; font-weight: 500; }
+
+/* ---------- Live badge ---------- */
+.live { display: inline-flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--live); margin-bottom: 28px; }
+.live::before { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--live); animation: ds-pulse 1.4s infinite; }
+@keyframes ds-pulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .live::before { animation: none; } }
+
+/* ---------- Leaderboard ---------- */
+.board { display: grid; gap: 10px; max-width: 1150px; }
+.board div { display: grid; grid-template-columns: 40px 290px 130px 1fr 90px; align-items: center; gap: 18px; font-family: var(--font-mono); font-size: 21px; font-variant-numeric: tabular-nums; }
+.board .pos { font-family: var(--font-serif); font-size: 28px; color: var(--accent); }
+.board .name { font-family: var(--font-sans); font-size: 24px; font-weight: 500; }
+.board .prov { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); }
+.board .bar { height: 22px; background: var(--surface-card); border-radius: var(--radius-bar); overflow: hidden; }
+.board .bar i { display: block; height: 100%; width: var(--w); background: var(--accent); border-radius: var(--radius-bar); }
+.board .pts { text-align: right; }
+.board .lead .bar i { background: linear-gradient(90deg, var(--accent), var(--secondary)); }
+
+/* ---------- Recap ---------- */
+.recap { display: grid; gap: var(--gap-card); }
+.recap div { display: grid; grid-template-columns: 70px 380px 1fr; align-items: baseline; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.recap .n { font-family: var(--font-mono); color: var(--accent); font-size: 20px; }
+.recap .k { font-size: 28px; font-weight: 600; }
+.recap .v { font-family: var(--font-mono); font-size: 22px; color: var(--ink-muted); }
+
+/* ---------- Half-slide image panel ---------- */
+.halfpanel .body { max-width: calc(50% - var(--slide-pad-x)); }
+.halfpanel .panel { position: absolute; top: 0; right: 0; bottom: 0; width: 50%; background: var(--surface-card); display: flex; align-items: center; justify-content: center; padding: 0 40px var(--slide-footer); }
+.halfpanel .panel img, .halfpanel .panel .slot { width: 100%; display: block; border: 1px solid var(--line); }
+
+/* ---------- Callout panel ---------- */
+.callout { background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 28px 32px; }
+.callout .tag { display: inline-block; margin-bottom: 20px; }
+.callout ul.sq { gap: 14px; }
+.callout ul.sq li { font-size: 24px; padding-left: 30px; }
+.callout ul.sq li::before { width: 10px; height: 10px; background: var(--accent); }
+.callout p { margin-top: 22px; font-size: 22px; line-height: 1.45; color: var(--ink-muted); }
+.callout p strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- Print: one slide per page ---------- */
+@page { size: 1600px 900px; margin: 0; }
+@media print {
+  body.stage { background: none; overflow: visible; }
+  .deck { position: static; transform: none !important; width: auto; height: auto; }
+  .deck .slide { position: relative; opacity: 1; visibility: visible; break-after: page; transition: none; }
+  .foot::before { display: none; }
+}
+/* Deck override: hide the placeholder label once an image is present (transparent PNGs let it show through). */
+.slot:has(> img, > video)::before { content: none; }
+</style>
+</head>
+<body class="stage">
+<main class="deck" id="deck">
+
+  <!-- Title -->
+  <section class="slide title" data-foot="false">
+    <div class="top"><span class="eyebrow">Talk</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h1><span class="pre">WordPress 🤝 AI</span>A tour of the <em>Core AI</em> projects</h1>
+      <p class="by"><strong>Jonathan Bossenger</strong> · Developer Advocate, Automattic</p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Intro</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <div class="split wide-left">
+        <div>
+          <h2>Hi, I'm <em>Jonathan</em></h2>
+          <ul class="sq">
+            <li>Developer Advocate at <strong>Automattic</strong>.</li>
+            <li>Based in Cape Town, South Africa.</li>
+            <li>Professional AI experimenter.</li>
+          </ul>
+          <p style="margin-top:36px"><a class="link" href="https://jonathanbossenger.com/" target="_blank" rel="noopener noreferrer">jonathanbossenger.com</a></p>
+        </div>
+        <figure class="slot" style="width:480px; height:480px; justify-self:center; margin-bottom:150px" data-label="Headshot&#10;images/slide-02-intro.jpg">
+          <img src="images/slide-02-intro.jpg" alt="Jonathan Bossenger speaking on stage with a microphone" onerror="this.remove()">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core AI team -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Overview</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>The WordPress <em>Core AI</em> team</h2>
+      <ul class="sq" style="max-width:1250px">
+        <li>Formed in <strong>May 2025</strong>.</li>
+        <li>Accelerates and coordinates AI projects across the WordPress ecosystem.</li>
+        <li>Core team reps from across the WordPress ecosystem.</li>
+      </ul>
+      <p style="margin-top:40px"><a class="link" href="https://make.wordpress.org/ai/" target="_blank" rel="noopener noreferrer">make.wordpress.org/ai</a></p>
+    </div>
+  </section>
+
+  <!-- Building blocks overview -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Overview</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2 class="compact">Open <em>building blocks</em></h2>
+      <p class="lede" style="margin-bottom:40px">Make WordPress AI-ready <strong>without forcing a single vendor or model</strong> into Core.</p>
+      <div class="cards c4">
+        <div class="card"><span class="num">01</span><h4>Abilities API</h4><p>Describe what WordPress can do.</p></div>
+        <div class="card"><span class="num">02</span><h4>MCP Adapter</h4><p>Expose content and actions to external agents.</p></div>
+        <div class="card"><span class="num">03</span><h4>AI Client</h4><p>Call AI providers in a standard way.</p></div>
+        <div class="card"><span class="num">04</span><h4>AI Experiments</h4><p>Try AI features in WordPress today.</p></div>
+      </div>
+      <p style="margin-top:36px"><a class="link" href="https://make.wordpress.org/ai/2025/07/17/ai-building-blocks/" target="_blank" rel="noopener noreferrer">Read the building blocks post</a></p>
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="slide statement">
+    <div class="top"><span class="eyebrow">Overview</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Shipping since 6.9, <em>more to 7.3</em></h2>
+      <p class="lede">Updates have shipped since WordPress 6.9, and more is on the roadmap toward <strong>WordPress 7.3</strong>.</p>
+      <p style="margin-top:40px"><a class="link" href="https://make.wordpress.org/ai/2026/10/28/wordpress-for-the-agentic-web/" target="_blank" rel="noopener noreferrer">WordPress for the agentic web</a></p>
+    </div>
+  </section>
+
+  <!-- Divider: Abilities API -->
+  <section class="slide divider" data-theme="bright">
+    <div class="top"><span class="eyebrow">Section</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <p class="num">01 / 04</p>
+      <h2>Abilities <em>API</em></h2>
+      <p class="lede">The foundation for AI.</p>
+      <span class="bignum">1</span>
+    </div>
+  </section>
+
+  <!-- Foundation -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Abilities API</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <div class="split wide-left">
+        <div>
+          <h2>Developers and robots like <em>structure</em></h2>
+          <p class="lede">Every AI feature needs a solid foundation to build on.</p>
+        </div>
+        <figure class="slot" style="width:480px; height:480px; justify-self:center; margin-bottom:150px" data-label="Foundation photo&#10;images/slide-05-foundation-for-ai.jpg">
+          <img src="images/slide-05-foundation-for-ai.jpg" alt="Construction workers laying a building's concrete foundation" onerror="this.remove()">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- WordPress APIs diagram -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Abilities API</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body shot" style="--ratio:1959/1431">
+      <h2>20+ years of <em>WordPress APIs</em></h2>
+      <figure class="slot contain" data-label="WordPress APIs diagram&#10;images/slide-06-wordpress-apis-diagram.png">
+        <img src="images/slide-06-wordpress-apis-diagram.png" alt="Diagram of WordPress at the centre, connected to Admin-Ajax, plugin APIs, theme APIs, WP-CLI, the REST API and GraphQL" onerror="this.remove()">
+      </figure>
+    </div>
+  </section>
+
+  <!-- Abilities API -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Abilities API</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Register once, <em>use everywhere</em></h2>
+      <ul class="sq" style="max-width:1300px">
+        <li>One registry for extenders, AI and automations.</li>
+        <li>20 years of open source, now with <strong>structured inputs and outputs</strong>.</li>
+        <li>Accessible via PHP, JavaScript and the REST API.</li>
+        <li>Part of WordPress Core since <strong>WordPress 6.9</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Abilities next -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Abilities API</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Next: <em>native</em> Abilities</h2>
+      <p class="lede" style="margin-bottom:40px">A baseline set of Abilities for <strong>common site management workflows</strong>.</p>
+      <ul class="sq" style="max-width:1300px">
+        <li>A few foundational Abilities may land in <strong>WordPress 7.2</strong>.</li>
+        <li>A useful native set is targeted for <strong>WordPress 7.3</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Abilities diagram -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Abilities API</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body shot" style="--ratio:2048/1231">
+      <h2>One registry, <em>many consumers</em></h2>
+      <figure class="slot contain" data-label="Abilities API diagram&#10;images/slide-08-abilities-api-diagram.png">
+        <img src="images/slide-08-abilities-api-diagram.png" alt="Diagram of the Abilities API as a central registry of WordPress capabilities, consumed by plugins and themes, automation systems and AI agents" onerror="this.remove()">
+      </figure>
+    </div>
+  </section>
+
+  <!-- Abilities links -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Abilities API</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Learn the <em>Abilities API</em></h2>
+      <p style="margin-top:8px"><a class="link" href="https://github.com/WordPress/abilities-api" target="_blank" rel="noopener noreferrer">github.com/WordPress/abilities-api</a></p>
+      <p style="margin-top:28px"><a class="link" href="https://make.wordpress.org/core/2025/11/10/abilities-api-in-wordpress-6-9/" target="_blank" rel="noopener noreferrer">Abilities API in WordPress 6.9</a></p>
+    </div>
+  </section>
+
+  <!-- Divider: MCP Adapter -->
+  <section class="slide divider" data-theme="bright">
+    <div class="top"><span class="eyebrow">Section</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <p class="num">02 / 04</p>
+      <h2>MCP <em>Adapter</em></h2>
+      <p class="lede">Abilities become tools and resources.</p>
+      <span class="bignum">2</span>
+    </div>
+  </section>
+
+  <!-- Tools & resources -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">MCP Adapter</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <div class="split wide-left">
+        <div>
+          <h2>Abilities → tools &amp; <em>resources</em></h2>
+          <p class="lede">Giving AI agents context <strong>since 2025</strong>.</p>
+        </div>
+        <figure class="slot" style="width:480px; height:480px; justify-self:center; margin-bottom:150px" data-label="Tools photo&#10;images/slide-10-abilities-tools-resources.jpg">
+          <img src="images/slide-10-abilities-tools-resources.jpg" alt="Spanners, hammers, nails and a spirit level laid out on a wooden workbench" onerror="this.remove()">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MCP Adapter -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">MCP Adapter</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>The WordPress <em>MCP Adapter</em></h2>
+      <ul class="sq" style="max-width:1300px">
+        <li>Automatically adapts Abilities into <strong>MCP tools</strong>.</li>
+        <li>Works with any AI agent application: chat, IDE and more.</li>
+        <li>HTTP (web) and STDIO (local) transports.</li>
+        <li>Not in Core (yet): install it as a Composer package or the <strong>MCP Adapter plugin</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MCP roadmap -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">MCP Adapter</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>On the road to <em>Core</em></h2>
+      <ul class="sq" style="max-width:1300px">
+        <li><strong>7.2:</strong> rapid iteration on reliability, security and usability.</li>
+        <li><strong>7.3:</strong> a proposal to bring MCP into Core.<span class="sub">Either a direct merge, or bundled so it can evolve independently.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MCP diagram -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">MCP Adapter</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body shot" style="--ratio:2048/1022">
+      <h2>One adapter, <em>any agent</em></h2>
+      <figure class="slot contain" data-label="MCP Adapter diagram&#10;images/slide-12-mcp-adapter-diagram.png">
+        <img src="images/slide-12-mcp-adapter-diagram.png" alt="Diagram of the MCP Adapter exposing WordPress Abilities as tools and resources to Claude, Cursor, Copilot and ChatGPT" onerror="this.remove()">
+      </figure>
+    </div>
+  </section>
+
+  <!-- MCP links -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">MCP Adapter</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Learn the <em>MCP Adapter</em></h2>
+      <p style="margin-top:8px"><a class="link" href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">modelcontextprotocol.io</a></p>
+      <p style="margin-top:28px"><a class="link" href="https://github.com/WordPress/mcp-adapter" target="_blank" rel="noopener noreferrer">github.com/WordPress/mcp-adapter</a></p>
+      <p style="margin-top:28px"><a class="link" href="https://wordpress.org/plugins/mcp-adapter/" target="_blank" rel="noopener noreferrer">wordpress.org/plugins/mcp-adapter</a></p>
+    </div>
+  </section>
+
+  <!-- Agentic web: goal -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Agentic web</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>WordPress for the <em>agentic web</em></h2>
+      <p class="lede" style="margin:-12px 0 44px">The goal: connecting an agent to your site should take <strong>one sign-in</strong>.</p>
+      <div class="flow" style="max-width:1300px">
+        <div class="step"><span class="num">01</span>An agent recognises your site</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="num">02</span>It sends you an authorization link</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="num">03</span>You sign in</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="num">04</span>Done</div>
+      </div>
+      <p style="margin-top:44px"><a class="link" href="https://make.wordpress.org/ai/2026/10/28/wordpress-for-the-agentic-web/" target="_blank" rel="noopener noreferrer">WordPress for the agentic web</a></p>
+    </div>
+  </section>
+
+  <!-- Agentic web: workstreams -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Agentic web</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2 class="compact">Four <em>workstreams</em></h2>
+      <div class="cards c4">
+        <div class="card"><span class="ico">🔌</span><h4>MCP Adapter</h4><p>Agents talk to WordPress over MCP.</p></div>
+        <div class="card"><span class="ico">🛠</span><h4>Abilities</h4><p>What agents can do on your site.</p></div>
+        <div class="card"><span class="ico">🔐</span><h4>OAuth</h4><p>Authorize agents without sharing Application Passwords.</p></div>
+        <div class="card"><span class="ico">🧭</span><h4>End-to-end UX</h4><p>Discover, request access, perform tasks, manage or revoke.</p></div>
+      </div>
+      <ul class="sq" style="margin-top:44px">
+        <li>Foundations in <strong>7.2</strong>, targeting <strong>7.3</strong>.</li>
+        <li>Get involved in <strong>#core-ai</strong> on Make WordPress Slack.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Divider: AI Client -->
+  <section class="slide divider" data-theme="bright">
+    <div class="top"><span class="eyebrow">Section</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <p class="num">03 / 04</p>
+      <h2>AI <em>Client</em></h2>
+      <p class="lede">Making WordPress AI aware.</p>
+      <span class="bignum">3</span>
+    </div>
+  </section>
+
+  <!-- AI aware -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">AI Client</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <div class="split wide-left">
+        <div>
+          <h2>Making WordPress <em>AI aware</em></h2>
+          <p class="lede">One standard way for Core and plugins to talk to <strong>any AI provider</strong>.</p>
+        </div>
+        <figure class="slot" style="width:480px; height:480px; justify-self:center; margin-bottom:150px" data-label="AI photo&#10;images/slide-14-making-wordpress-ai-aware.jpg">
+          <img src="images/slide-14-making-wordpress-ai-aware.jpg" alt="An open hand holding a glowing holographic AI symbol surrounded by digital icons" onerror="this.remove()">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Client -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">AI Client</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>The WordPress <em>AI Client</em></h2>
+      <ul class="sq" style="max-width:1300px">
+        <li>Registers AI providers for use inside WordPress.</li>
+        <li>Fully extendable to work with any external AI provider.</li>
+        <li>Anthropic, OpenAI and Google Gemini by default, plus <strong>community providers</strong>.</li>
+        <li>Foundations shipped in <strong>WordPress 7.0</strong>, with the new Connectors page.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- AI Client diagram -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">AI Client</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body shot" style="--ratio:2048/1182">
+      <h2>LLM <em>agnostic</em></h2>
+      <figure class="slot contain" data-label="AI Client diagram&#10;images/slide-16-ai-client-diagram.png">
+        <img src="images/slide-16-ai-client-diagram.png" alt="Diagram of the WP AI Client routing requests from WordPress Core and plugins through AI connectors to Anthropic, OpenAI, Google Gemini and more" onerror="this.remove()">
+      </figure>
+    </div>
+  </section>
+
+  <!-- AI Client links -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">AI Client</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Learn the <em>AI Client</em></h2>
+      <p style="margin-top:8px"><a class="link" href="https://make.wordpress.org/core/2026/03/24/introducing-the-ai-client-in-wordpress-7-0/" target="_blank" rel="noopener noreferrer">Introducing the AI Client in WordPress 7.0</a></p>
+      <p style="margin-top:28px"><a class="link" href="https://github.com/WordPress/php-ai-client" target="_blank" rel="noopener noreferrer">github.com/WordPress/php-ai-client</a></p>
+    </div>
+  </section>
+
+  <!-- Divider: AI Experiments -->
+  <section class="slide divider" data-theme="bright">
+    <div class="top"><span class="eyebrow">Section</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <p class="num">04 / 04</p>
+      <h2>AI <em>Experiments</em></h2>
+      <p class="lede">AI features you can try today.</p>
+      <span class="bignum">4</span>
+    </div>
+  </section>
+
+  <!-- AI Experiments plugin -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">AI Experiments</span><span class="meta">Version 1.5.0 · WordCamp Athens 2026</span></div>
+    <div class="body">
+      <div class="split wide-left">
+        <div>
+          <h2 class="compact">The AI Experiments <em>plugin</em></h2>
+          <p class="lede" style="margin-bottom:32px">AI-powered features in your admin and editor. <strong>Nothing is on by default.</strong></p>
+          <div class="stats" style="margin-bottom:8px">
+            <div class="stat"><b>1</b><span>Stable feature</span></div>
+            <div class="stat"><b>26</b><span>Experiments</span></div>
+          </div>
+          <p style="margin-top:36px"><a class="link" href="https://wordpress.org/plugins/ai/" target="_blank" rel="noopener noreferrer">wordpress.org/plugins/ai</a></p>
+        </div>
+        <figure class="slot" style="width:440px; height:440px; justify-self:center; margin-bottom:150px" data-label="Lab photo&#10;images/slide-18-ai-experiments.jpg">
+          <img src="images/slide-18-ai-experiments.jpg" alt="A scientist in gloves pouring liquid into a flask next to a laptop in a lab" onerror="this.remove()">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Experiments inside -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">AI Experiments</span><span class="meta">Version 1.5.0 · WordCamp Athens 2026</span></div>
+    <div class="body">
+      <h2 class="compact">What's <em>inside</em></h2>
+      <p class="lede" style="margin-bottom:36px">Stable: <strong>image generation and editing</strong>. Everything else is an experiment you switch on.</p>
+      <div class="cards c3">
+        <div class="card"><span class="ico">✍️</span><h4>Editor writing tools</h4></div>
+        <div class="card"><span class="ico">📝</span><h4>Editorial notes &amp; updates</h4></div>
+        <div class="card"><span class="ico">🖼</span><h4>Content &amp; media</h4></div>
+        <div class="card"><span class="ico">💬</span><h4>Comments</h4></div>
+        <div class="card"><span class="ico">🤖</span><h4>Agentic web</h4></div>
+        <div class="card"><span class="ico">🎛</span><h4>Site owner controls</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live demo -->
+  <section class="slide statement" data-theme="bright">
+    <div class="top"><span class="eyebrow">AI Experiments</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <p class="live">Live demo</p>
+      <h2>Let's try it <em>together</em></h2>
+    </div>
+  </section>
+
+  <!-- Try it -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">AI Experiments</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Try it <em>yourself</em></h2>
+      <p class="lede">Install the plugin and connect your AI provider.</p>
+      <p style="margin-top:40px"><a class="link" href="https://wordpress.org/plugins/ai/" target="_blank" rel="noopener noreferrer">wordpress.org/plugins/ai</a></p>
+    </div>
+  </section>
+
+  <!-- Recap -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Recap</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2 class="compact">The Core AI <em>building blocks</em></h2>
+      <div class="recap" style="max-width:1300px">
+        <div><span class="n">01</span><span class="k">Abilities API</span><a class="v" href="https://github.com/WordPress/abilities-api" target="_blank" rel="noopener noreferrer">github.com/WordPress/abilities-api</a></div>
+        <div><span class="n">02</span><span class="k">MCP Adapter</span><a class="v" href="https://github.com/WordPress/mcp-adapter" target="_blank" rel="noopener noreferrer">github.com/WordPress/mcp-adapter</a></div>
+        <div><span class="n">03</span><span class="k">AI Client</span><a class="v" href="https://github.com/WordPress/php-ai-client" target="_blank" rel="noopener noreferrer">github.com/WordPress/php-ai-client</a></div>
+        <div><span class="n">04</span><span class="k">AI Experiments</span><a class="v" href="https://wordpress.org/plugins/ai/" target="_blank" rel="noopener noreferrer">wordpress.org/plugins/ai</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Want more -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Bonus</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <div class="split wide-left">
+        <div>
+          <h2>Want <em>more?</em></h2>
+          <div class="cards c2" style="margin-top:8px">
+            <div class="card"><span class="ico">📊</span><h4>wp-bench</h4><p>Benchmark models for WordPress development.</p><a class="link" style="font-size:20px" href="https://github.com/WordPress/wp-bench" target="_blank" rel="noopener noreferrer">WordPress/wp-bench</a></div>
+            <div class="card"><span class="ico">🧠</span><h4>agent-skills</h4><p>Expert WordPress knowledge for AI coding assistants.</p><a class="link" style="font-size:20px" href="https://github.com/WordPress/agent-skills" target="_blank" rel="noopener noreferrer">WordPress/agent-skills</a></div>
+          </div>
+        </div>
+        <figure class="slot" style="width:440px; height:440px; justify-self:center; margin-bottom:150px" data-label="Sweets photo&#10;images/slide-21-want-more.jpg">
+          <img src="images/slide-21-want-more.jpg" alt="A pile of colourful sweets and a chocolate cupcake" onerror="this.remove()">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- wp-bench -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Bonus</span><span class="meta">Tested 25–26 October 2026</span></div>
+    <div class="body">
+      <h2 class="compact">A recent <em>wp-bench</em> run</h2>
+      <p class="lede" style="font-size:26px; margin-bottom:32px">Latest three models from OpenAI, Anthropic and Google · 350 tests each.</p>
+      <div class="board">
+        <div class="lead"><span class="pos">1</span><span class="name">Claude Opus 5.5</span><span class="prov">Anthropic</span><span class="bar"><i style="--w:90.6%"></i></span><span class="pts">90.6%</span></div>
+        <div><span class="pos">2</span><span class="name">Gemini 4 Argon</span><span class="prov">Google</span><span class="bar"><i style="--w:90.0%"></i></span><span class="pts">90.0%</span></div>
+        <div><span class="pos">3</span><span class="name">GPT-6.1 Sol</span><span class="prov">OpenAI</span><span class="bar"><i style="--w:88.0%"></i></span><span class="pts">88.0%</span></div>
+        <div><span class="pos">4</span><span class="name">GPT-6 Astra</span><span class="prov">OpenAI</span><span class="bar"><i style="--w:87.7%"></i></span><span class="pts">87.7%</span></div>
+        <div><span class="pos">5</span><span class="name">Gemini 3.8 Flash</span><span class="prov">Google</span><span class="bar"><i style="--w:85.1%"></i></span><span class="pts">85.1%</span></div>
+        <div><span class="pos">6</span><span class="name">Gemini 3.7 Flash</span><span class="prov">Google</span><span class="bar"><i style="--w:84.9%"></i></span><span class="pts">84.9%</span></div>
+        <div><span class="pos">6</span><span class="name">Claude Sonnet 5.5</span><span class="prov">Anthropic</span><span class="bar"><i style="--w:84.9%"></i></span><span class="pts">84.9%</span></div>
+        <div><span class="pos">8</span><span class="name">Claude Haiku 5.5</span><span class="prov">Anthropic</span><span class="bar"><i style="--w:82.3%"></i></span><span class="pts">82.3%</span></div>
+        <div><span class="pos">9</span><span class="name">GPT-6 Luna</span><span class="prov">OpenAI</span><span class="bar"><i style="--w:77.7%"></i></span><span class="pts">77.7%</span></div>
+      </div>
+      <p style="margin-top:28px"><a class="link" href="https://wp-ai-benchmarks.space.fast/" target="_blank" rel="noopener noreferrer">wp-ai-benchmarks.space.fast</a></p>
+    </div>
+  </section>
+
+  <!-- agent-skills -->
+  <section class="slide">
+    <div class="top"><span class="eyebrow">Bonus</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2><em>agent-skills</em></h2>
+      <p class="lede" style="margin:-12px 0 36px">Expert-level WordPress knowledge for AI coding assistants.</p>
+      <div class="terminal" style="max-width:1150px; margin-bottom:32px">
+        <div><span class="p">$ </span>npx skills add WordPress/agent-skills --list</div>
+        <div><span class="p">$ </span>npx skills add WordPress/agent-skills --skill wp-abilities-api</div>
+      </div>
+      <div class="chips" style="max-width:1150px">
+        <span>wp-abilities-api</span><span>wp-block-development</span><span>wp-block-themes</span><span>wp-plugin-development</span>
+        <span>wp-rest-api</span><span>wp-interactivity-api</span><span>wp-performance</span><span>wp-phpstan</span><span>wp-playground</span><span>wp-wpcli-and-ops</span><span>+ more</span>
+      </div>
+      <p style="margin-top:36px"><a class="link" href="https://github.com/WordPress/agent-skills" target="_blank" rel="noopener noreferrer">github.com/WordPress/agent-skills</a></p>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section class="slide statement" data-theme="bright">
+    <div class="top"><span class="eyebrow">Questions welcome</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h2>Any <em>questions?</em></h2>
+    </div>
+  </section>
+
+  <!-- Thank you -->
+  <section class="slide thanks" data-theme="bright">
+    <div class="top"><span class="eyebrow">Questions welcome</span><span class="meta">WordCamp Athens · 2026</span></div>
+    <div class="body">
+      <h1>Thank <em>you.</em></h1>
+      <p class="lede">jonathanbossenger@gmail.com<br><a href="https://jonathanbossenger.com/" target="_blank" rel="noopener noreferrer">jonathanbossenger.com</a></p>
+    </div>
+  </section>
+
+</main>
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const slides = [...deck.querySelectorAll('.slide')];
+  const total = slides.length;
+  const footText = 'WordPress 🤝 AI: A tour of the Core AI projects · WordCamp Athens 2026';           // set per talk
+  let current = 0;
+
+  slides.forEach((s, i) => {
+    if (s.dataset.foot === 'false') return;
+    const f = document.createElement('div');
+    f.className = 'foot';
+    f.style.setProperty('--progress-pct', ((i + 1) / total * 100) + '%');
+    f.innerHTML = `<span>${footText}</span><span class="count">${String(i + 1).padStart(2, '0')} / ${total}</span>`;
+    s.appendChild(f);
+  });
+
+  const fit = () => {
+    const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+    deck.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  };
+  function go(n) {
+    current = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    history.replaceState(null, '', '#' + (current + 1));
+    slides.forEach((s, i) => { if (i !== current) s.querySelectorAll('video').forEach(v => v.pause()); });
+  }
+  addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter':
+        if (e.target.tagName === 'VIDEO') return;
+        e.preventDefault(); go(current + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace':
+        e.preventDefault(); go(current - 1); break;
+      case 'Home': go(0); break;
+      case 'End': go(total - 1); break;
+      case 'f': case 'F':
+        document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); break;
+    }
+  });
+  let touchX = null;
+  addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) go(current + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+  addEventListener('resize', fit);
+  addEventListener('hashchange', () => go(parseInt(location.hash.slice(1), 10) - 1 || 0));
+  fit();
+  go(parseInt(location.hash.slice(1), 10) - 1 || 0);
+})();
+</script>
+</body>
+</html>

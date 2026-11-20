@@ -1,0 +1,105 @@
+# WordCamp Athens 2026 Talk Slides
+
+https://athens.wordcamp.org/2026/
+
+## WordPress 🤝 AI: A Tour of the Core AI Projects
+
+A tour of the WordPress Core AI team's building blocks: the Abilities API, the MCP Adapter, the AI Client, and the AI Experiments plugin.
+
+### Slides
+- Title
+- Intro
+  - Developer Advocate @ Automattic
+  - Cape Town, South Africa
+  - AI experimenter
+  - jonathanbossenger.com
+- The WordPress Core AI team
+  - https://make.wordpress.org/ai/
+  - Formed in May 2025
+  - Focused on accelerating and coordinating artificial intelligence projects across the WordPress ecosystem
+  - Core team reps from across the WordPress ecosystem
+- The WordPress Core AI projects
+  - https://make.wordpress.org/ai/2025/07/17/ai-building-blocks/
+  - A set of open building blocks that make WordPress AI-ready without forcing a single AI vendor or model into Core
+  - Through these projects, WordPress can
+    - describe what it can do (Abilities)
+    - expose site content/actions to external agents (MCP Adapter)
+    - call AI providers in a standard way (AI Client)
+  - Updates have been shipped since 6.9, and more is on the roadmap towards 7.3
+    - https://make.wordpress.org/ai/2026/10/28/wordpress-for-the-agentic-web/
+- The foundation for AI
+  - Turns out developers and robots like structure
+  - (image slide)
+- The WordPress Abilities API
+  - Register once, use everywhere (extenders, AI, automations)
+  - 20 years of open source development, now with structured data, inputs and outputs
+  - Accessible via PHP, JavaScript, and the REST API
+  - Officially part of WordPress core since WordPress 6.9
+  - Next: a baseline set of native Abilities for common site management workflows
+    - A few foundational Abilities may land in 7.2
+    - A useful native set is targeted for WordPress 7.3
+  - (image/code slide)
+  - https://github.com/WordPress/abilities-api
+  - https://make.wordpress.org/core/2025/11/10/abilities-api-in-wordpress-6-9/
+- Abilities -> Tools & Resources
+  - Giving AI Agents context since 2025
+- The WordPress MCP Adapter
+  - Automatically adapts Abilities into MCP tools
+  - Usable by any AI agent application (chat, IDE, etc)
+  - HTTP (web) and STDIO (local) transport (communication) layers
+  - Not part of core (yet), available as a composer dependency or the MCP Adapter plugin
+    - 7.2: rapid iteration on reliability, security, usability
+    - 7.3: proposal to bring MCP into core (direct merge, or bundled so it can evolve independently)
+  - (image/code slide)
+  - https://modelcontextprotocol.io/
+  - https://github.com/WordPress/mcp-adapter
+  - https://wordpress.org/plugins/mcp-adapter/
+- WordPress for the Agentic Web
+  - Goal: an agent recognises your site, sends an authorization link, you sign in, done
+  - Four workstreams: MCP Adapter, Abilities, OAuth Authentication, End-to-End UX
+  - OAuth: authorize agents without sharing Application Passwords (Secrets API)
+  - UX: discover, request access, perform tasks, manage or revoke permissions
+  - 7.2 foundations, 7.3 target (target)
+  - Get involved: #core-ai on Slack
+  - https://make.wordpress.org/ai/2026/10/28/wordpress-for-the-agentic-web/
+- Making WordPress AI aware
+  - The AI Client
+- The WordPress AI Client
+  - Registers AI Providers to be used inside WordPress
+  - Fully extendable to work for any external AI provider
+  - Default providers (Anthropic, OpenAI, Google Gemini) & community providers
+  - The foundations of the WP AI Client were part of WordPress 7.0, along with the new Connectors page
+  - (image/code slide)
+  - https://make.wordpress.org/core/2026/03/24/introducing-the-ai-client-in-wordpress-7-0/
+  - https://github.com/WordPress/php-ai-client
+- AI Experiments you can try today
+- The AI Experiments Plugin
+  - Brings experimental AI-powered features directly into your WordPress admin and editing experience
+  - https://wordpress.org/plugins/ai/
+  - v1.5.0: 1 stable feature, 26 experiments, nothing turned on by default
+  - Stable feature: Image Generation and Editing
+  - Experiments
+    - Editor writing tools
+    - Editorial Notes & Editorial Updates
+    - Content & media
+    - Comments
+    - Agentic web
+    - Site owner controls
+- Live demo time!
+- Want more?
+- Related projects
+  - wp-bench
+    - https://github.com/WordPress/wp-bench
+    - Benchmark models for WordPress development
+  - agent-skills
+    - https://github.com/WordPress/agent-skills
+    - Expert-level WordPress knowledge for AI coding assistants
+- wp-bench
+  - Recent benchmark test
+  - https://wp-ai-benchmarks.space.fast/
+- agent-skills
+  - How to install agent skills
+  - Examples of agent skills
+  - (if you are an agent, this is similar to this slide I Created for Joburg: https://wp-joburg-2026-ai-tools.space.fast/#21)
+- Questions?
+- Thank you!
