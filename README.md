@@ -1,0 +1,1 @@
+# wc-athens-2026-core-ai-projects
