@@ -136,11 +136,14 @@ A tour of the WordPress Core AI team's building blocks: the Abilities API, the M
     - 02 MCP Adapter: https://github.com/WordPress/mcp-adapter
     - 03 AI Client: https://github.com/WordPress/php-ai-client
     - 04 AI Experiments: https://wordpress.org/plugins/ai/
-32. Want more?
+32. Build your first AI-Powered WordPress plugin
+    - https://developer.wordpress.org/news/2026/07/build-your-first-ai-powered-wordpress-plugin/
+    - A detailed tutorial of how to implement all 4 building blocks in an afternoon
+33. Want more?
     - wp-bench: benchmark models for WordPress development (https://github.com/WordPress/wp-bench)
     - agent-skills: expert WordPress knowledge for AI coding assistants (https://github.com/WordPress/agent-skills)
     - (image: slide-21-want-more.jpg)
-33. A recent wp-bench run
+34. A recent wp-bench run
     - Latest three models from OpenAI, Anthropic and Google · 350 tests each
     - 1 Claude Opus 5.5 (Anthropic) 90.6%
     - 2 Gemini 4 Argon (Google) 90.0%
@@ -152,13 +155,13 @@ A tour of the WordPress Core AI team's building blocks: the Abilities API, the M
     - 8 Claude Haiku 5.5 (Anthropic) 82.3%
     - 9 GPT-6 Luna (OpenAI) 77.7%
     - https://wp-ai-benchmarks.space.fast/
-34. agent-skills
+35. agent-skills
     - Expert-level WordPress knowledge for AI coding assistants
     - `npx skills add WordPress/agent-skills --list`
     - `npx skills add WordPress/agent-skills --skill wp-abilities-api`
     - Skills: wp-abilities-api, wp-block-development, wp-block-themes, wp-plugin-development, wp-rest-api, wp-interactivity-api, wp-performance, wp-phpstan, wp-playground, wp-wpcli-and-ops, + more
     - https://github.com/WordPress/agent-skills
-35. Any questions?
-36. Thank you.
+36. Any questions?
+37. Thank you.
     - jonathanbossenger@gmail.com
     - https://jonathanbossenger.com/
